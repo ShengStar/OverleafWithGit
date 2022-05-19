@@ -159,14 +159,14 @@ def main(argc: int, argv: list) -> None:
 
 
 if __name__ == '__main__':
-    # コマンドライン引数
+    # 命令行参数
     argv = sys.argv
     argc = len(argv)
     last_update_date = datetime(2020, 1, 1, 0, 0).astimezone(
         timezone(timedelta(hours=+9)))
     while True:
-        # TODO: ここはログのフォーマットに依存しているのと, なんかの拍子に落ちるかもしれない. テストが必要
-        # ログの後ろから探査していく
+        # TODO: 这里要依赖日志的格式，一不小心可能会掉下来。需要测试
+        # 从日志的后面进行探测
         for line in reversed(get_nginx_access_log()):
             # ex. ['192.168.1.1', '-', '-', '[19/Oct/2020:07:31:47', '+0000]', 'GET', '/project/5f8d2f5e40a9cd007604f46b/user/5f8cdf0540a9cd007604f453/build/1753fc578c4-433e012c62ebc28d/output/output.pdf?compileGroup=standard&pdfng=true', 'HTTP/1.1', '200', '36782', 'http://192.168.1.62/project/5f8d2f5e40a9cd007604f46b', 'Mozilla/5.0', '(Macintosh;', 'Intel', 'Mac', 'OS', 'X', '10_15_7)', 'AppleWebKit/537.36', '(KHTML,', 'like', 'Gecko)', 'Chrome/86.0.4240.99', 'Safari/537.36']
             splited = line.replace('"', '').split(' ')
@@ -177,9 +177,9 @@ if __name__ == '__main__':
             request_path = urlparse(splited[6])[2]
             status = splited[8]
 
-            # PDFが表示されるタイミングをキャッチする
+            # 捕捉PDF显示的时间
             if (
-                request_date > last_update_date and  # 新しいRequestがAPIに飛んできた場合
+                request_date > last_update_date and  # 如果有新的Request跳转到API
                 method == 'GET' and
                 re.match(r'/project/{}/user/{}/build/.+/output/output.pdf'.format(PROJECT_ID, USER_ID), request_path) and
                 status == '200'
@@ -188,4 +188,4 @@ if __name__ == '__main__':
                 print('{} -> {}\n'.format(last_update_date, request_date))
                 last_update_date = request_date
                 break
-        time.sleep(1)  # ログ探査間隔
+        time.sleep(1)  # 日志探测间隔
