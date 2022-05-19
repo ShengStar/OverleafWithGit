@@ -1,4 +1,3 @@
-# 標準パッケージ
 import sys
 import os
 import shutil
@@ -6,19 +5,16 @@ import time
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
 import re
-
-# 外部パッケージ
-# git 操作を可能にするパッケージ ($pip3 install GitPython)
 import git
 
 
-# TODO: コマンド引数やら, 標準入力やらで変数を書き換えるようにする
+# TODO:用命令自变量或标准输入来改写变量
 
-# ユーザ変数
+# 用户变量
 
-# OverleafのプロジェクトID, ユーザID
-# 1. latex編集画面で, デベロッパーツールを開く
-# 2. コンソールで以下の入力をして出力されるものが, プロジェクトID, ユーザID
+# Overleaf的项目ID，用户ID
+# 1. 在latex编辑画面中打开开发者工具
+# 2. 在控制台进行以下输入后输出的是项目ID、用户ID
 # > project_id
 # "5f8d2f5e40a9cd007604f46b"
 # > user_id
