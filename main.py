@@ -115,13 +115,13 @@ def main(argc: int, argv: list) -> None:
     print('[CHECKOUT]')
     repo.git.checkout(GIT_BRANCH_NAME)
 
-    # overleafプロジェクトが保存されるディレクトリを初期化
+    # 初始化overleaf项目被保存的目录
     watch_overleaf_list = get_watch_overleaf_list()
     exclude_list = get_exclude_list()
     if(not os.path.isdir(COPYED_DIR_PATH)):
         os.mkdir(COPYED_DIR_PATH)
     else:
-        # 速度は落ちるけれど, overleafプロジェクトが保存されるディレクトリを全て削除
+        # 虽然速度下降，但将删除所有保存overleaf项目的目录
         shutil.rmtree(COPYED_DIR_PATH)
         os.mkdir(COPYED_DIR_PATH)
 
